@@ -35,6 +35,9 @@ public class FileProcess {
 
 	public static void filewrite(Workbook workbook, String filePath) {
 		File file = new File(filePath);
+		if(!file.exists()) {
+			file.getParentFile().mkdirs();
+		}
 		filewrite(workbook, file);
 	}
 
