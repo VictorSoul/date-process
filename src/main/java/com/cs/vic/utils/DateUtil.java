@@ -92,17 +92,17 @@ public class DateUtil {
 	private static long getmin(Date d1, Date d2) {
 
 		if (d1.before(noonstart)) {
-			if (d2.before(noonstart))
+			if (!d2.after(noonstart))
 				return ((d2.getTime() - d1.getTime()) / 60000L);
-			if ((d2.after(noonstart)) && (d2.before(noonend)))
+			else if ((d2.after(noonstart)) && (d2.before(noonend)))
 				return ((noonstart.getTime() - d1.getTime()) / 60000L);
-
-			return ((d2.getTime() - d1.getTime()) / 60000L - 60L);
+			else
+				return ((d2.getTime() - d1.getTime()) / 60000L - 60L);
 		}
-		if ((d1.after(noonstart)) && (d1.before(noonend)))
+		else if ((d1.after(noonstart)) && (d1.before(noonend)))
 			return ((d2.getTime() - noonend.getTime()) / 60000L);
-
-		return ((d2.getTime() - d1.getTime()) / 60000L);
+		else
+			return ((d2.getTime() - d1.getTime()) / 60000L);
 	}
 
 	private static Date getDate(Date date) {

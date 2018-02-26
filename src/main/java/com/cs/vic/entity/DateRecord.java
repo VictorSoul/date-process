@@ -27,7 +27,7 @@ public class DateRecord implements Cloneable {
 	public DateRecord clone() {
 		DateRecord clone = new DateRecord();
 		clone.setName(this.name);
-		clone.setDatetime(this.datetime);
+		clone.setDatetime((Date)this.datetime.clone());
 		return clone;
 	}
 

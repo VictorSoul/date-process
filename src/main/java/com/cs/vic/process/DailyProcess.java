@@ -22,6 +22,7 @@ public class DailyProcess {
 				timeData.addRow(row);
 			}
 		}
+		timeData.prodailydata();
 		return timeData;
 	}
 

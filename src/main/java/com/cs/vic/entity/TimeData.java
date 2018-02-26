@@ -19,10 +19,12 @@ public class TimeData {
 		try {
 			DateRecord record = new DateRecord();
 			String name = row.getCell(0).getStringCellValue();
-			Date dt = dtf.parse(row.getCell(1).getStringCellValue() + " " + row.getCell(2).getStringCellValue());
-			record.setName(name).setDatetime(dt);
-			dailyRecord(record);
-			records.add(record);
+			if (name!=null&&name.trim()!="") {
+				Date dt = dtf.parse(row.getCell(1).getStringCellValue() + " " + row.getCell(2).getStringCellValue());
+				record.setName(name).setDatetime(dt);
+				dailyRecord(record);
+				records.add(record);
+			}
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -33,19 +35,24 @@ public class TimeData {
 				&& daily.getFirst().getDatetime().getDate() == record.getDatetime().getDate())) {
 			daily.add(record);
 		} else {
-			if (daily.size() == 1) {
-				daily.add(daily.getFirst().add530());
-			} else if (daily.size() > 2) {
-				DateRecord start = daily.getFirst();
-				DateRecord end = daily.getLast();
-				daily.clear();
-				daily.addFirst(start);
-				daily.addLast(end);
-			}
-			genDailyData(daily);
-			daily.clear();
+			prodailydata();
 			daily.add(record);
 		}
+	}
+	
+	public void prodailydata() {
+		if (daily.size() == 1) {
+			daily.add(daily.getFirst().add530());
+		} else if (daily.size() > 2) {
+			DateRecord start = daily.getFirst();
+			DateRecord end = daily.getLast();
+			daily.clear();
+			daily.addFirst(start);
+			daily.addLast(end);
+		}
+		genDailyData(daily);
+		daily.clear();
+		
 	}
 
 	private void genDailyData(LinkedList<DateRecord> dailyRec) {
